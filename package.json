@@ -1,7 +1,7 @@
 {
 	"name": "global-events",
 	"description": "Global events library in distributed system via redis pub/sub mechanism",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"author": "rain1017",
 	"private" : false,
 	"homepage" : "https://github.com/rain1017/global-events",
