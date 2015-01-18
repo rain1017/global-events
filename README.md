@@ -6,7 +6,10 @@ Global node's events library in distributed system via redis pub/sub mechanism
 [![Dependencies Status](https://david-dm.org/rain1017/global-events.svg)](https://david-dm.org/rain1017/global-events)
 
 API is compatible with Node's builtin [events library](http://nodejs.org/api/events.html) except the following exception:
-All listener operations are local (In fact you are calling built-in events library), so you can't remove a remote listener, or get global listener counts. Do not make any assumption on api order in a distributed system (We can't guarantee a listener can get called right after addListener)
+
+All listener operations are local (In fact you are calling built-in events library), so you can't remove a remote listener, or get global listener counts. 
+
+Do not make any assumption on api order in a distributed system (We can't guarantee a listener can get called right after addListener)
 
 ## Quick Start
 
@@ -16,11 +19,11 @@ var publishClient = redis.createClient();
 var subscribeClient = redis.createClient();
 var events = require('global-events');
 
-//pub: redis client for publish events
-//sub: redis client for subscribe events (should use the same db as pub)
-//You can left pub/sub to null as long as you don't fire event or add listeners
+// pub: redis client for publish events
+// sub: redis client for subscribe events (should use the same db as pub)
+// You can left pub/sub to null as long as you don't fire event or add listeners
 //
-//prefix(Optional): redis pub/sub channel prefix
+// prefix(Optional): redis pub/sub channel prefix
 var emitter = new events.EventEmitter({
 									pub: publishClient, 
 									sub: subscribeClient, 
@@ -29,10 +32,11 @@ var emitter = new events.EventEmitter({
 
 emitter.on('event', function(arg1, arg2 ...){});
 
-//WARN: In fact the event subscription can't take effect immediately, delay some time before emit if you wish to see listener really get called
+// WARN: In fact the event subscription can't take effect immediately
+//       delay some time before emit if you wish to see listener really get called
 emitter.emit('event', arg1, arg2 ...); //args should be JSON serializeble
 
-//close redis connection (optional)
+// close redis connection (optional)
 emitter.end();
 
 ```
